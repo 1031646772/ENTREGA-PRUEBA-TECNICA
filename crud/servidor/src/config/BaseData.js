@@ -24,3 +24,16 @@ export async function testConnection() {
 }
 
 export default pool;
+
+/*
+
+HASHEO DE USUARIO 
+PRINCIPAL TEMPORAL
+use bguju0pbfgqavbxldaor
+
+select * from Usuarios
+ 
+insert into Usuarios
+(Username, Email, PasswordHash, FechaRegistro) values ('jperalta','juliperalta1306@gmail.com','$2b$10$mv36ArPWKwYz43pr7EEWBOCThmgb3Wgj7twRSeOc1P.7fQD1HNvy6',now())
+
+*/
