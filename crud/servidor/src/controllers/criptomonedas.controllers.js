@@ -1,7 +1,6 @@
 import axios from "axios";
-import poolPromise from '../config/BaseData.js'
-import sql from 'mssql/msnodesqlv8.js';
-
+import pool from "../config/BaseData.js"; // aquí ya tienes el pool de MySQL
+ 
 const mockCryptos = [
   {
     id: "bitcoin",
@@ -50,24 +49,21 @@ const mockCryptos = [
   }
 ];
 
-
+// Lista criptos desde la BD
 export async function ListarCryptos(req, res) {
   try {
-    const pool = await poolPromise; // obtenemos pool conectado
-    const result = await pool.request()
-      .query("SELECT * FROM Criptomonedas"); // consulta para obtener todas las criptos
-
-    res.json(result.recordset); // enviamos el arreglo de criptos como JSON
+    const [rows] = await pool.query("SELECT * FROM Criptomonedas");
+    res.json(rows);
   } catch (err) {
     console.error("Error al listar criptomonedas:", err);
     res.status(500).send("Error en la base de datos");
   }
 }
-
-const instance = axios.create({
-  httpsAgent: new (await import("https")).Agent({ rejectUnauthorized: false })
-});
-
+ 
+// Axios instance (opcional, sin certificados)
+const instance = axios.create();
+ 
+// Trae criptos desde CoinGecko
 export async function TraerCriptos1(req, res) {
   try {
     const response = await instance.get(
@@ -78,53 +74,36 @@ export async function TraerCriptos1(req, res) {
           order: "market_cap_desc",
           per_page: 10,
           page: 1,
-          sparkline: false
-        }
+          sparkline: false,
+        },
       }
     );
     res.json(response.data);
-    console.log(response)
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
 }
-
+ 
+// Trae criptos mockeadas
 export async function TraerCriptos(req, res) {
-  try {
-    res.json(mockCryptos);
-    console.log(mockCryptos)
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: err.message });
-  }
+  res.json(mockCryptos);
 }
-
-
+ 
+// Registrar criptomoneda en MySQL
 export async function RegistrarCripto(req, res) {
   const { CmcId, Nombre, Simbolo, Slug } = req.body;
-
+ 
   try {
-    const pool = await poolPromise;
-
-    await pool.request()
-      .input('CmcId', sql.NVarChar, CmcId)
-      .input('Nombre', sql.NVarChar, Nombre)
-      .input('Simbolo', sql.NVarChar, Simbolo)
-      .input('Slug', sql.NVarChar, Slug)
-      .query(`
-        INSERT INTO Criptomonedas
-        (CmcId, Nombre, Simbolo, Slug)
-        VALUES (@CmcId, @Nombre, @Simbolo, @Slug)
-      `);
-
+    await pool.query(
+      `INSERT INTO Criptomonedas (CmcId, Nombre, Simbolo, Slug) VALUES (?, ?, ?, ?)`,
+      [CmcId, Nombre, Simbolo, Slug]
+    );
+ 
     res.status(201).json({ message: "Criptomoneda registrada correctamente" });
-
   } catch (err) {
     console.error("Error al registrar cripto:", err);
-
-    // Si es un error de UNIQUE (símbolo duplicado)
-    if (err.number === 2627) {
+    if (err.code === "ER_DUP_ENTRY") {
       res.status(400).json({ error: "El símbolo ya existe" });
     } else {
       res.status(500).json({ error: "Error en la base de datos" });

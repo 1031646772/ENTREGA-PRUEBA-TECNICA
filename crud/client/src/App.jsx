@@ -42,12 +42,12 @@ function App() {
           Password={Password}
           setPassword={setPassword}
           onlogin={async () => {
-            try {
-              await LogeoUser();
-              setIsAuth(true);
-              cargarCryptos(); // apenas se loguee cargamos BD
-            } catch (err) {
-              alert("Usuario o contraseña incorrectos");
+            const ok = await LogeoUser(); 
+            if (ok) {
+              setIsAuth(true); 
+              cargarCryptos(); 
+            } else {
+              setIsAuth(false);  
             }
           }}
         />
@@ -59,12 +59,12 @@ function App() {
               <p id="cargando">Cargando criptos...</p>
             ) : (
               <ListaCriptoM 
-                  cryptosExternas={cryptosExternas} 
-                  seleccionarYRegistrar={async (cripto) => {
-                    await seleccionarYRegistrar(cripto); 
-                    await cargarCryptos();
-                  }}
-                />
+                cryptosExternas={cryptosExternas} 
+                seleccionarYRegistrar={async (cripto) => {
+                  await seleccionarYRegistrar(cripto); 
+                  await cargarCryptos();
+                }}
+              />
             )}
           </div>
 

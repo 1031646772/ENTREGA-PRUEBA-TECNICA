@@ -1,19 +1,26 @@
-import sql from "mssql";
+import mysql from "mysql2/promise";
 
-const config = {
-  connectionString: "Driver={ODBC Driver 17 for SQL Server};Server=(localdb)\\CrudJulian;Database=cryptoinvestment;Trusted_Connection=Yes;"
-};
+const pool = mysql.createPool({
+  host: "bguju0pbfgqavbxldaor-mysql.services.clever-cloud.com",
+  user: "unavbshsafv9eo0e",
+  password: "vhuo8oNWQbKALqo4T2Xd",
+  database: "bguju0pbfgqavbxldaor",
+  port: 3306,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
+});
 
-// Creamos y exportamos un pool conectado
- const poolPromise = sql.connect(config)
-  .then(pool => {
-    console.log("Conexión exitosa a SQL Server");
-    return pool;
-  })
-  .catch(err => {
-    console.error("Error de conexión", err);
-    console.error(JSON.stringify(err, null, 2));
-    process.exit(1); // detener app si no se conecta
-  });
+export async function testConnection() {
+  try {
+    const connection = await pool.getConnection();
+    console.log("Conexión exitosa a MySQL");
+    connection.release();
+  } catch (err) {
+    console.error("No se pudo conectar a la base de datos:");
+    console.error(err.message);
+    process.exit(1);
+  }
+}
 
-export default poolPromise
+export default pool;

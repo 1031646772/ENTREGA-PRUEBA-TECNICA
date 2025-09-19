@@ -1,4 +1,10 @@
 const ListaCriptoM = ({ cryptosExternas = [], seleccionarYRegistrar }) => {
+  const formatoUSD = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 2,
+  });
+
   return (
     <div className="Lista">
       {cryptosExternas.map((cripto, index) => (
@@ -10,17 +16,18 @@ const ListaCriptoM = ({ cryptosExternas = [], seleccionarYRegistrar }) => {
             <h3>Símbolo: {cripto.symbol.toUpperCase()}</h3>
           </div>
           <div className="columnaList">
-            <h3>Precio USD: ${cripto.current_price}</h3>
+            <h3>Precio USD: {formatoUSD.format(cripto.current_price || 0)}</h3>
           </div>
           <div className="columnaList">
-            <h3>Volumen 24h: ${cripto.total_volume.toLocaleString()}</h3>
+            <h3>Volumen 24h: {formatoUSD.format(cripto.total_volume || 0)}</h3>
           </div>
           <div className="columnaList">
-            <h3>Capitalización: ${cripto.market_cap.toLocaleString()}</h3>
+            <h3>Capitalización: {formatoUSD.format(cripto.market_cap || 0)}</h3>
           </div>
           <div className="columnaList">
             <button
-              className="boton-lis" id="RegisCripBo"
+              className="boton-lis"
+              id="RegisCripBo"
               onClick={() => seleccionarYRegistrar(cripto)}
             >
               Registrar

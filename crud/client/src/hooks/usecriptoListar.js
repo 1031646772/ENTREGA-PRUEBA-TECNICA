@@ -7,7 +7,7 @@ export default function useListarCryptos(isAuth) {
   const cargarCryptos = async () => {
     try {
       const response = await listarCriptos();
-      console.log(response);
+      console.log(response.data);
       setCryptos(response.data);
     } catch (err) {
       console.error("Error al listar criptomonedas:", err);
