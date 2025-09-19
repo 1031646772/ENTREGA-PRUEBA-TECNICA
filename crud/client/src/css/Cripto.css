@@ -1,0 +1,125 @@
+/* Aplica estilo global al body */
+
+/* Contenedor principal */
+.contenedor {
+  width: 90%;
+  max-width: 1000px;
+  margin-top: 2rem;
+}
+
+/* Título */
+.titulo {
+  text-align: center;
+  padding: 20px;
+  background: #0d1b2a;
+  border-bottom: 2px solid #1b263b;
+  color: white;
+  
+}
+
+.titulo h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+/* Lista de tarjetas */
+.lista-criptos {
+  margin: 20px 0;
+}
+
+.tarjeta {
+  background: #1b263b;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.tarjeta:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.6);
+}
+
+.tarjeta h2 {
+  margin-top: 0;
+  color: #ffd60a;
+}
+
+.tarjeta p {
+  margin: 8px 0;
+  font-size: 0.95rem;
+}
+
+/* Botón de acción */
+.acciones {
+  margin-top: 15px;
+}
+
+.acciones button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  background: #ffd60a;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.acciones button:hover {
+  background: #ffc300;
+}
+
+.crypto-card {
+  width: 320px;
+  height: 180px;
+  background: linear-gradient(135deg, #e6f0ff, #f9fbff);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 15px;
+  color: #2c3e50;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.crypto-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.crypto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.crypto-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #1a73e8;
+}
+
+.crypto-symbol {
+  font-size: 1rem;
+  background: #dce9ff;
+  padding: 6px 12px;
+  border-radius: 12px;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+.crypto-body {
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+
+.crypto-slug,
+.crypto-id {
+  margin: 4px 0;
+  color: #5f6368;
+}

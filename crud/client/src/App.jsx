@@ -1,0 +1,105 @@
+import { useState } from "react";
+import './css/login.css';
+import './css/App.css';
+import './css/Cripto.css'
+
+import LoginForm from './components/Login.jsx';
+import useLogin from './hooks/UseLoginForm.js';
+import useCryptoExternoForm from './hooks/usecripto.js';
+import useListarCryptos from './hooks/usecriptoListar.js';
+import ListaCriptoM from './components/ListarCripto.jsx';
+
+function App() {
+  const [isAuth, setIsAuth] = useState(false);
+
+  // Hook login
+  const {
+    Uslogin,
+    setNombre,
+    Password,
+    setPassword,
+    LogeoUser
+  } = useLogin();
+
+  // Hook de criptos externas
+  const {
+    cryptosExternas,
+    seleccionarYRegistrar
+  } = useCryptoExternoForm(isAuth);
+
+  // Hook de criptos registradas en BD
+  const {
+    cryptos,
+    cargarCryptos
+  } = useListarCryptos(isAuth);
+
+  return (
+    <div>
+      {!isAuth ? (
+        <LoginForm
+          Uslogin={Uslogin}
+          setuslogin={setNombre}
+          Password={Password}
+          setPassword={setPassword}
+          onlogin={async () => {
+            try {
+              await LogeoUser();
+              setIsAuth(true);
+              cargarCryptos(); // apenas se loguee cargamos BD
+            } catch (err) {
+              alert("Usuario o contraseña incorrectos");
+            }
+          }}
+        />
+      ) : (
+        <div className="App">
+          <div className="Datos">
+            <h2 className="titulo">Criptomonedas Externas a seguir</h2>
+            {cryptosExternas.length === 0 ? (
+              <p id="cargando">Cargando criptos...</p>
+            ) : (
+              <ListaCriptoM 
+                  cryptosExternas={cryptosExternas} 
+                  seleccionarYRegistrar={async (cripto) => {
+                    await seleccionarYRegistrar(cripto); 
+                    await cargarCryptos();
+                  }}
+                />
+            )}
+          </div>
+
+          <div className="contenedor">
+            <div className="titulo">
+              <h1> Criptomonedas Registradas</h1>
+            </div>
+
+            <div className="crypto-container">
+              <h1 className="crypto-title">Mis Criptomonedas</h1>
+
+              <div className="crypto-grid">
+                {cryptos.length === 0 ? (
+                  <p className="empty">No hay criptos registradas aún </p>
+                ) : (
+                  cryptos.map((c) => (
+                    <div className="crypto-card" key={c.Id}>
+                      <div className="crypto-header">
+                        <h2 className="crypto-name">{c.Nombre}</h2>
+                        <span className="crypto-symbol">{c.Simbolo}</span>
+                      </div>
+                      <div className="crypto-body">
+                        <p className="crypto-slug">Slug: {c.Slug}</p>
+                        <p className="crypto-id">CMC ID: {c.CmcId}</p>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+export default App;
