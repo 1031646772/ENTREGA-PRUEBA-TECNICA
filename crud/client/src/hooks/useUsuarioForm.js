@@ -1,54 +1,28 @@
 import { useState } from 'react';
 import { registrarUsuario } from '../services/UsuarioService';
-import { updateEmpleadoService } from '../services/UsuarioService';
 
 export default function useUsuario ()  {
-    const [Id, setId] = useState(0);            
-    const [CmcId, setCmcId] = useState(0);      // Id de CoinMarketCap
-    const [Nombre, setNombre] = useState("");   // Nombre de la cripto
-    const [Simbolo, setSimbolo] = useState(""); // Símbolo de la cripto (BTC, ETH, etc.)
-    const [Slug, setSlug] = useState("");       // Slug o nombre corto URL friendly
-    const [Accion, setAccion] = useState(""); 
-    
+    const [Nombre, setNombre] = useState(""); 
+    const [Email, setEmail] = useState("");
+    const [Passwordd, setPasswordd] = useState("");   
         const RegisEmplea = () => { 
-        if(Accion=='Registrar'){
+        const fecha= new Date().toISOString().slice(0, 19).replace('T', ' ')
         registrarUsuario({
             Nombre,
-            Edad,
-            Pais,
-            Cargo,
-            Telefono,
-            AnosEmpresa,
+            Email,
+            Passwordd,
+            fecha
         }) 
-        .then(() => alert("Empleado registrado"))
-        .catch(() => alert("Error al registrar empleado"));
-        }
-        else if (Accion=='Actualizar'){
-        updateEmpleadoService({
-            Nombre,
-            Edad,
-            Pais,
-            Cargo,
-            Telefono,
-            AnosEmpresa,
-            Id
-        }) 
-        .then(() => alert("Empleado Actualizado"))
-        .catch(() => alert("Error al registrar empleado"));
-        }
+        .then(() => alert("Te registraste correctamente"))
+        .catch(() => alert("Error al registrar Usuario"));
         }
     
     
     return {
         Nombre, setNombre,
-        Edad, setEdad,
-        Pais, setPais,
-        Cargo, setCargo,
-        Telefono, setTelefono,
-        AnosEmpresa, setAnosEmpresa,
-        Accion, setAccion,
-        Id, setId,
-        registrarUsuario
+        Email, setEmail,
+        Passwordd, setPasswordd,
+        RegisEmplea
         };
     
 };

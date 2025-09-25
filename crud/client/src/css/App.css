@@ -1,3 +1,26 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.container-index {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;  
+    align-items: center;      
+    background-color: #f5f5f5;
+    width: 100%;
+}
+
+.second-container{
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    height: 100vh;
+}
+
 .App{
     text-align: left;
     display: flex;
@@ -14,44 +37,6 @@
     padding: 2rem;
 }
 
-.campo {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 1rem;
-    width: 500px; /* espacio entre campos */
-}
-
-.campo h3 {
-    width: 100px; /* ancho fijo para alinear todos los inputs */
-    margin: 0; /* quitar margen por defecto */
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 600;
-}
-
-.campo input {
-    flex: 1; /* ocupa el espacio restante */
-    padding: 0.3rem;
-    font-size: medium;
-}
-
-.datos input {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 300px;
-    height: 30px;
-    align-items: center;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    padding-left: 10px;
-    border-radius: 6px;
-}
-
-#BOTRegistrar{
-    background-color:rgb(35, 230, 220);
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-}
 
 #BOTListar{
     background-color: BLACK;
@@ -62,15 +47,6 @@
 .BotonForm:hover{
     border: 3px solid black;
     font-size: 15px;
-}
-
-.BotonForm{
-    color: rgb(255, 255, 255);
-    width: 250px;
-    height: 40px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: medium;
-    border: none;
 }
 
 .Lista{

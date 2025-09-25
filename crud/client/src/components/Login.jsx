@@ -1,6 +1,5 @@
 const LoginForm = ({ Uslogin, setuslogin, Password, setPassword, onlogin }) => {
     return (
-        <div className="login-container">
             <form onSubmit={(e) => { e.preventDefault(); onlogin(); }} className="login-form">
                 <h2>Login</h2>
                 <div>
@@ -23,7 +22,6 @@ const LoginForm = ({ Uslogin, setuslogin, Password, setPassword, onlogin }) => {
                 </div>
                 <button type="submit">Ingresar</button>
             </form>
-        </div>
     )
 }
 

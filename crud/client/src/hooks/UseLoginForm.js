@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { LogearUser } from '../services/UsuarioService';
 
 export default function useLogin () {
-  const [Uslogin, setNombre] = useState("");
+  const [Uslogin, setuslogin] = useState("");
   const [Password, setPassword] = useState("");
   const [token, setToken] = useState(null);
   
@@ -38,7 +38,7 @@ export default function useLogin () {
 
   return {
     Uslogin,
-    setNombre,
+    setuslogin,
     Password,
     setPassword,
     LogeoUser,

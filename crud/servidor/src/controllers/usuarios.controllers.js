@@ -40,39 +40,21 @@ export async function LoginUsers(req, res) {
   }
 }
 
-export async function RegistrarEmple(req, res) {
-  const { Nombre, Edad, Pais, Cargo, Telefono, AnosEmpresa } = req.body;
-
+export async function RegistrarUsu(req, res) {
+  const { Nombre, Email, Passwordd, fecha } = req.body;
+  const hash = await bcrypt.hash(Passwordd, 10);
+  console.log("Hash generado:", hash);
   try {
     await pool.query(
-      `INSERT INTO Empleados 
-       (Nombre, Edad, Pais, Cargo, Telefono, anios_empresa) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
-      [Nombre, Edad, Pais, Cargo, Telefono, AnosEmpresa]
+      `INSERT INTO Usuarios 
+       (Username, Email, PasswordHash, FechaRegistro) 
+       VALUES (?, ?, ?, ?)`,
+      [Nombre, Email, hash, fecha]
     );
 
-    res.send("Empleado registrado");
+    res.send("Usuario registrado");
   } catch (err) {
     console.error("Error al ejecutar query:", err);
     res.status(500).send("Error en la base de datos");
   }
 }
-
-/*
-export async function UpdateEmple(req, res) {
-  const { Nombre, Edad, Pais, Cargo, Telefono, AnosEmpresa, Id } = req.body;
-  try {
-    await pool.query(
-      `UPDATE Empleados 
-       SET Nombre=?, Edad=?, Pais=?, Cargo=?, Telefono=?, anios_empresa=? 
-       WHERE Id=?`,
-      [Nombre, Edad, Pais, Cargo, Telefono, AnosEmpresa, Id]
-    );
-
-    res.send("Empleado Actualizado");
-  } catch (err) {
-    console.error("Error al ejecutar query:", err);
-    res.status(500).send("Error en la base de datos");
-  }
-}
-*/

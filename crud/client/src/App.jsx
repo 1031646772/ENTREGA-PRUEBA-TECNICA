@@ -1,25 +1,38 @@
 import { useState } from "react";
 import './css/login.css';
 import './css/App.css';
-import './css/Cripto.css'
+import './css/Cripto.css';
+import './css/RegistrarUsu.css';
 
 import LoginForm from './components/Login.jsx';
+import FormUsuario from './components/RegistroUsuario.jsx'
 import useLogin from './hooks/UseLoginForm.js';
 import useCryptoExternoForm from './hooks/usecripto.js';
 import useListarCryptos from './hooks/usecriptoListar.js';
 import ListaCriptoM from './components/ListarCripto.jsx';
+import useUsuario from './hooks/useUsuarioForm.js'
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
 
-  // Hook login
   const {
     Uslogin,
-    setNombre,
+    setuslogin,
     Password,
     setPassword,
     LogeoUser
   } = useLogin();
+
+  const {
+    Nombre,
+    setNombre,
+    Email,
+    setEmail,
+    Passwordd,
+    setPasswordd,
+    RegisEmplea
+  } = useUsuario();
+
 
   // Hook de criptos externas
   const {
@@ -34,11 +47,12 @@ function App() {
   } = useListarCryptos(isAuth);
 
   return (
-    <div>
+    <div  className="container-index">
       {!isAuth ? (
+        <div className="second-container"> 
         <LoginForm
           Uslogin={Uslogin}
-          setuslogin={setNombre}
+          setuslogin={setuslogin}
           Password={Password}
           setPassword={setPassword}
           onlogin={async () => {
@@ -51,6 +65,16 @@ function App() {
             }
           }}
         />
+        
+        <FormUsuario 
+          Nombre={Nombre}
+          setNombre={setNombre}
+          Passwordd={Passwordd}
+          setPasswordd={setPasswordd}
+          Email={Email}
+          setEmail={setEmail} RegisEmplea={RegisEmplea}
+        />
+        </div>
       ) : (
         <div className="App">
           <div className="Datos">
