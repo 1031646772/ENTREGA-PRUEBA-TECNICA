@@ -15,7 +15,7 @@ export default function useLogin () {
 
       const tokenRecibido = response.data.token;
       if (tokenRecibido) {
-        alert("Usuario encontrado ✅");
+        alert("Bienvenido ✅");
         console.log("Token recibido:", tokenRecibido);
 
         setToken(tokenRecibido);
