@@ -1,6 +1,6 @@
 import axios from "axios";
 import pool from "../config/BaseData.js"; // aquí ya tienes el pool de MySQL
- 
+
 const mockCryptos = [
   {
     id: "bitcoin",
@@ -63,30 +63,29 @@ export async function ListarCryptos(req, res) {
 // Axios instance (opcional, sin certificados)
 const instance = axios.create();
  
-// Trae criptos desde CoinGecko
-export async function TraerCriptos1(req, res) {
+export async function TraerCriptos(req, res) {
   try {
-    const response = await instance.get(
-      "https://api.coingecko.com/api/v3/coins/markets",
+    const response = await axios.get(
+      "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest",
       {
-        params: {
-          vs_currency: "usd",
-          order: "market_cap_desc",
-          per_page: 10,
-          page: 1,
-          sparkline: false,
-        },
+        params: { start: 1, limit: 10, convert: "USD" },
+        headers: {
+          "X-CMC_PRO_API_KEY": "42396ff002c945248971906495704adf",
+          "Accept": "application/json"
+        }
       }
     );
-    res.json(response.data);
+    console.log(response.data)
+    res.json(response.data.data);
   } catch (err) {
-    console.error(err);
+    console.error(err.response?.data || err.message);
     res.status(500).json({ error: err.message });
   }
 }
+
  
 // Trae criptos mockeadas
-export async function TraerCriptos(req, res) {
+export async function TraerCriptos1(req, res) {
   res.json(mockCryptos);
 }
  
