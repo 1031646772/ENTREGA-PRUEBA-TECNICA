@@ -3,6 +3,7 @@ import './css/login.css';
 import './css/App.css';
 import './css/Cripto.css';
 import './css/RegistrarUsu.css';
+import './css/ListadoCriptosExternas.css';
 
 import LoginForm from './components/Login.jsx';
 import FormUsuario from './components/RegistroUsuario.jsx'
@@ -78,7 +79,7 @@ function App() {
       ) : (
         <div className="App">
           <div className="Datos">
-            <h2 className="titulo">Criptomonedas Externas a seguir</h2>
+            <div className="titulo"><h2>Criptomonedas Externas a seguir</h2></div>
             {cryptosExternas.length === 0 ? (
               <p id="cargando">Cargando criptos...</p>
             ) : (
@@ -91,12 +92,8 @@ function App() {
               />
             )}
           </div>
-
+         <div className="titulo"><h2>Criptomonedas Externas a seguir</h2></div>
           <div className="contenedor">
-            <div className="titulo">
-              <h1> Criptomonedas Registradas</h1>
-            </div>
-
             <div className="crypto-container">
               <h1 className="crypto-title">Mis Criptomonedas</h1>
 

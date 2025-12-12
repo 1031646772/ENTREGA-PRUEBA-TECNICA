@@ -1,0 +1,72 @@
+.lista-cripto-container {
+  display: flex;
+  flex-wrap: wrap;      
+  gap: 20px;
+  padding: 30px;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center; /* Centra todo bonito */
+}
+
+/* TARJETA */
+.crypto-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 25px;
+  width: 27rem;
+  height: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.10);
+  transition: 0.2s;
+  border-top: 5px solid #00e6e6;
+  flex: 0 1 27rem;     /* 👉 Se adapta y hace que el wrap funcione perfecto */
+}
+
+.crypto-card:hover {
+  transform: scale(1.01);
+}
+
+/* TITULO */
+.crypto-title {
+  font-size: 22px;
+  margin-bottom: 10px;
+  color: #222;
+}
+
+/* SLUG */
+.crypto-slug {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* GRID */
+.crypto-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px 25px;
+  margin-bottom: 20px;
+}
+
+.crypto-grid div {
+  background: #f4f4f4;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+/* BOTÓN */
+.btn-registrar {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #00e6e6;
+  color: #000;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-registrar:hover {
+  background: #00cccc;
+}
